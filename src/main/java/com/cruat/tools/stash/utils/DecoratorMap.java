@@ -6,7 +6,7 @@ import java.util.Set;
 
 public abstract class DecoratorMap<K, E> implements Map<K, E> {
 
-	private Map<K, E> internal;
+	protected Map<K, E> internal;
 	
 	DecoratorMap(Map<K, E> wrappable) {
 		this.internal = wrappable;

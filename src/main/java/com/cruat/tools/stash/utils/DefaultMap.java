@@ -18,6 +18,6 @@ public class DefaultMap<K, E> extends DecoratorMap<K, E>{
 	
 	@Override
 	public E get(Object key) {
-		return getOrDefault(key, defaultValue);
+		return internal.getOrDefault(key, defaultValue);
 	}
 }
