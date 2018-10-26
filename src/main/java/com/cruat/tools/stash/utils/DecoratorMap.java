@@ -69,6 +69,6 @@ public abstract class DecoratorMap<K, E> implements Map<K, E> {
 
 	@Override
 	public Set<Entry<K, E>> entrySet() {
-		return entrySet();
+		return internal.entrySet();
 	}
 }
