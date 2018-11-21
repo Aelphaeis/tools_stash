@@ -58,7 +58,7 @@ public class PropertyTransformer extends AbstractTransformer {
 			String key = entry.getKey();
 			
 			Instruction inst = entry.getValue();
-			processInstructionDirective(inst);
+			inst = processInstructionDirective(inst);
 			processUnwrapDirective(inst);
 			
 			
