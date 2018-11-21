@@ -15,12 +15,15 @@ public class Instruction {
 	//TODO make immutable
 	private String name;
 	
+	private final String key;
+	
 	public Instruction(String key, String val) {
 		this(key, val, "");
 	}
 
 	public Instruction(String key, String val, String defaultLoc) {
 		value = val;
+		this.key = key;
 		name = InstructionFileParser.resolveName(key);
 		directives = InstructionFileParser.resolveDirectives(key);
 		location = InstructionFileParser.resolveDestination(key, defaultLoc);
@@ -61,6 +64,10 @@ public class Instruction {
 
 	public void setDirectives(List<String> directives) {
 		this.directives = directives;
+	}
+
+	public String getKey() {
+		return key;
 	}
 }
 
