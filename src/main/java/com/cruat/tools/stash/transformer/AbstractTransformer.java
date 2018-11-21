@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import com.cruat.tools.stash.config.Instruction;
 import com.cruat.tools.stash.directives.Directive;
@@ -35,6 +36,13 @@ public abstract class AbstractTransformer implements Transformer {
 		return getDirectives()
 			.stream()
 			.anyMatch(p -> p.getName().equalsIgnoreCase(name));
+	}
+	
+	protected Optional<Directive> getDirective(String name) {
+		return getDirectives()
+			.stream()
+			.filter(p -> p.getName().equals(name))
+			.findFirst();
 	}
 	
 	@Override
