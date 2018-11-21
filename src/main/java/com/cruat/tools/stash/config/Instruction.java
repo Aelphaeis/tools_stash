@@ -10,8 +10,8 @@ public class Instruction {
 	private String value;
 	//TODO make immutable
 	private List<String> directives;
-	//TODO make immutable
-	private String location;
+	
+	private final String location;
 	//TODO make immutable
 	private String name;
 	
@@ -48,10 +48,6 @@ public class Instruction {
 	
 	public List<String> getDirectives() {
 		return directives;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 	public void setName(String name) {
