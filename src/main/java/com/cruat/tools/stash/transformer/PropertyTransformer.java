@@ -59,8 +59,6 @@ public class PropertyTransformer extends AbstractTransformer {
 			
 			Instruction inst = entry.getValue();
 			inst = processInstructionDirective(inst);
-			processUnwrapDirective(inst);
-			
 			
 			config.setProperty(key, inst.getValue());
 			logger.trace("modifying {} to {}", key, inst.getValue());
@@ -76,14 +74,13 @@ public class PropertyTransformer extends AbstractTransformer {
 			throw new IOException(e);
 		}
 	}
-	
 
 	private Instruction processInstructionDirective(Instruction inst) {
 		List<String> directives = inst.getDirectives();
 		Map<String, InstructionDirective> applicable = getDirectives().stream()
 				.filter(InstructionDirective.class::isInstance)
 				.map(InstructionDirective.class::cast)
-				.map(p -> new SimpleEntry<>(p.getName(), p))
+				.map(p -> new SimpleEntry<>(p.getName().toLowerCase(), p))
 				.filter(p -> directives.contains(p.getKey()))
 				.collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue,
 						throwingMerger(),
@@ -98,7 +95,7 @@ public class PropertyTransformer extends AbstractTransformer {
 		}
 		return result;
 	}
-	
+
 	private static <T> BinaryOperator<T> throwingMerger(){
         return (u,v) -> {
         	String err = String.format("Duplicate key %s", u);
@@ -107,19 +104,6 @@ public class PropertyTransformer extends AbstractTransformer {
 	}
 	private static <E> Map<String, E> ignoreKeyCaseMap(Map<String, E> m){
 		return new IgnoreKeyCaseMap<>(m);
-	}
-	
-	
-	private Instruction processUnwrapDirective(Instruction i) {
-		if(i.getDirectives().contains("unwrap")) {
-			String value = i.getValue();
-			value = value.substring(1, value.length() - 1);
-			i.setValue(value);
-			return i;
-		}
-		else {
-			return i; 
-		}
 	}
 	
 	@Override
