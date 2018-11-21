@@ -24,7 +24,6 @@ public class Configurator {
 		return getInstructions(new File(instructionFile));
 	}
 	
-
 	public Instructions getInstructions(File instructionFile)
 			throws IOException {
 		Instructions inst = new Instructions();

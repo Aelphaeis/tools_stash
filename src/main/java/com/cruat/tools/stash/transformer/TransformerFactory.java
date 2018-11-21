@@ -50,9 +50,6 @@ public class TransformerFactory {
 		CACHE = Collections.unmodifiableMap(cache);
 	}
 	
-
-	
-	
 	public Transformer buildTransformer(String filePath) {
 		int index = filePath.lastIndexOf('.');
 		if (index == -1) {
