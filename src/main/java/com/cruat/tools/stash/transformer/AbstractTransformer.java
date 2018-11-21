@@ -8,17 +8,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
-import java.util.function.BinaryOperator;
 import java.util.Optional;
+import java.util.Set;
 
 import com.cruat.tools.stash.config.Instruction;
 import com.cruat.tools.stash.directives.Directive;
@@ -26,7 +24,6 @@ import com.cruat.tools.stash.directives.InstructionDirective;
 import com.cruat.tools.stash.exceptions.AggregationException;
 import com.cruat.tools.stash.exceptions.StashException;
 import com.cruat.tools.stash.exceptions.StashRuntimeException;
-import com.cruat.tools.stash.utils.IgnoreKeyCaseMap;
 
 public abstract class AbstractTransformer implements Transformer {
 	Set<Directive> directives;
@@ -94,9 +91,7 @@ public abstract class AbstractTransformer implements Transformer {
 				.map(InstructionDirective.class::cast)
 				.map(p -> new SimpleEntry<>(p.getName().toLowerCase(), p))
 				.filter(p -> dirs.contains(p.getKey()))
-				.collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue,
-						throwingMerger(),
-						() -> ignoreKeyCaseMap(new HashMap<>())));
+				.collect(toMap(SimpleEntry::getKey, SimpleEntry::getValue));
 
 		Instruction result = inst;
 		for(String dirName : dirs) {
@@ -106,16 +101,6 @@ public abstract class AbstractTransformer implements Transformer {
 			}
 		}
 		return result;
-	}
-
-	private static <T> BinaryOperator<T> throwingMerger(){
-        return (u,v) -> {
-        	String err = String.format("Duplicate key %s", u);
-        	throw new IllegalStateException(err);
-    	};
-	}
-	private static <E> Map<String, E> ignoreKeyCaseMap(Map<String, E> m){
-		return new IgnoreKeyCaseMap<>(m);
 	}
 	
 	public abstract void transformInternal(Map<String, Instruction> kvp);
