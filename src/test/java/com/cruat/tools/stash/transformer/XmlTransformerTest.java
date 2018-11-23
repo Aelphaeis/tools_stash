@@ -178,8 +178,54 @@ public class XmlTransformerTest {
 		xmlt.transform(input);
 	}
 	
+	@Test
+	public void transform_addNodeWithDiffValue_success() throws Exception {
+		List<String> directives = new ArrayList<>();
+		directives.add("add");
+		String value = "<secure>false</secure>";
+		Map<String, Instruction> input = new HashMap<>();
+		String query = "web-app/session-config/cookie-config";
+		InstructionBuilder builder = new InstructionBuilder();
+		
+		builder.name(query).directive(directives).value(value);
+		input.put(query, builder.build());
+		xmlt.transform(input);
+		//Add directive
+		
+		//test to make sure different value was added.
+		query = "web-app/session-config/cookie-config/secure";
+
+		List<Node> nodes = XmlUtils.find(query, xmlt.document);
+		assertEquals(2, nodes.size());
+		assertEquals("true", nodes.get(0).getTextContent());
+		assertEquals("false", nodes.get(1).getTextContent());
+	}
 	
-	String buildTempXml() {
+	@Test
+	public void transform_addNodeWithSameValue_noAdd() throws Exception {
+		List<String> directives = new ArrayList<>();
+		directives.add("add");
+		String value = "<secure>true</secure>";
+		Map<String, Instruction> input = new HashMap<>();
+		String query = "web-app/session-config/cookie-config";
+		InstructionBuilder builder = new InstructionBuilder();
+		
+		builder.name(query).directive(directives).value(value);
+		input.put(query, builder.build());
+		xmlt.transform(input);
+		//Add directive
+		
+		//test to make sure different value was added.
+		query = "web-app/session-config/cookie-config/secure";
+
+		List<Node> nodes = XmlUtils.find(query, xmlt.document);
+		assertEquals(1, nodes.size());
+		assertEquals("true", nodes.get(0).getTextContent());
+	}
+	
+	
+	
+	private String buildTempXml() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		builder.append("<web-app>\n");
