@@ -1,6 +1,5 @@
 package com.cruat.tools.stash.transformer;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,14 +18,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.cruat.tools.stash.config.Instruction;
 import com.cruat.tools.stash.directives.Directive;
+import com.cruat.tools.stash.directives.xml.Add;
 import com.cruat.tools.stash.exceptions.NotImplementedException;
 import com.cruat.tools.stash.exceptions.StashException;
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
 import com.cruat.tools.stash.utils.Serializer;
 import com.cruat.tools.stash.utils.XmlUtils;
 
@@ -102,26 +100,7 @@ public class XmlTransformer extends AbstractTransformer {
 
 	boolean handleAddIfPresent(Instruction i, Node e) {
 		if (i.getDirectives().contains(ADD)) {
-			String value = i.getValue();
-			value = String.format("<wrapper>%s</wrapper>", value);
-			byte[] valueBytes = value.getBytes();
-			ByteArrayInputStream is = new ByteArrayInputStream(valueBytes);
-			try {
-				NodeList list = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is).getDocumentElement()
-						.getChildNodes();
-				for (int c = 0; c < list.getLength(); c++) {
-					Node n = list.item(c);
-					if (!XmlUtils.isNodeExisting(e, n)) {
-						Node imported = document.importNode(n, true);
-						e.appendChild(imported);
-					}
-				}
-
-			} catch (Exception ex) {
-				String err = "error adding {} to {}";
-				logger.error(err, i.getValue(), Serializer.serialize(e));
-				throw new StashRuntimeException(ex);
-			}
+			new Add().execute(i, this);
 			return true;
 
 		} else {
