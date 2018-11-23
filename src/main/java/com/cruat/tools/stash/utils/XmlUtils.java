@@ -69,6 +69,14 @@ public class XmlUtils {
 	}
 	
 
+	/**
+	 * 
+	 * @param target
+	 *            The node we're searching for
+	 * @param searchable
+	 *            Where we are looking for the node
+	 * @return
+	 */
 	public static boolean isNodeExisting(Node target, Node searchable) {
 		String name = searchable.getNodeName();
 		NodeList list = target.getChildNodes();
