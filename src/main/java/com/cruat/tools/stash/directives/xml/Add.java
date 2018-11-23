@@ -49,7 +49,7 @@ public class Add implements TransformDirective {
 					.getChildNodes();
 			for (int c = 0; c < list.getLength(); c++) {
 				Node n = list.item(c);
-				if (XmlUtils.isNodeExisting(n, e)) {
+				if (!XmlUtils.isNodeExisting(n, e)) {
 					Node imported = document.importNode(n, true);
 					e.appendChild(imported);
 				}
