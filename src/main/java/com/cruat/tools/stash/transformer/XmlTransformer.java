@@ -35,6 +35,7 @@ public class XmlTransformer extends AbstractTransformer {
 	public static final String ADD = "add";
 	public static final String REMOVE = "remove";
 	private static final Logger logger = LogManager.getLogger();
+	private static final String UNK_ERR = "Unknown error occurred";
 	Document document;
 
 	public XmlTransformer() {
@@ -53,7 +54,7 @@ public class XmlTransformer extends AbstractTransformer {
 			document = docBuilder.parse(stream);
 		} catch (ParserConfigurationException e) {
 			// this is impossible and not recoverable
-			logger.error("Unknown error occurred", e);
+			logger.error(UNK_ERR, e);
 			throw new IllegalStateException(e);
 		} catch (SAXException e) {
 			logger.error("malformed xml loaded", e);
@@ -167,7 +168,7 @@ public class XmlTransformer extends AbstractTransformer {
 			return dbf;
 		} catch (ParserConfigurationException e) {
 			// this is impossible and not recoverable
-			logger.error("Unknown error occurred", e);
+			logger.error(UNK_ERR, e);
 			throw new IllegalStateException(e);
 		}
 	}
