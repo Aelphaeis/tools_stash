@@ -3,6 +3,7 @@ package com.cruat.tools.stash.directives.xml;
 import java.io.ByteArrayInputStream;
 import java.util.Optional;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.logging.log4j.LogManager;
@@ -45,8 +46,11 @@ public class Add implements TransformDirective {
 		byte[] valueBytes = value.getBytes();
 		ByteArrayInputStream is = new ByteArrayInputStream(valueBytes);
 		try {
-			NodeList list = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is).getDocumentElement()
-					.getChildNodes();
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = dbf.newDocumentBuilder();
+			Document tempDoc = builder.parse(is);
+			NodeList list = tempDoc.getDocumentElement().getChildNodes();
+			
 			for (int c = 0; c < list.getLength(); c++) {
 				Node n = list.item(c);
 				if (!XmlUtils.isNodeExisting(e, n)) {
