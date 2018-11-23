@@ -68,15 +68,15 @@ public class XmlUtils {
 				possibleDuplicates.add(child);
 			}
 		}
-		// check attributes and values
 		Iterator<Node> it = possibleDuplicates.iterator();
 		while (it.hasNext()) {
 			Node child = it.next();
-			if (areAttributesEqual(attrs, child.getAttributes())) {
-				return true;
+			if (!areAttributesEqual(attrs, child.getAttributes())
+					|| !isTextValueEqual(searchable, child)) {
+				it.remove();
 			}
 		}
-		return false;
+		return !possibleDuplicates.isEmpty();
 	}
 
 	public static boolean areAttributesEqual(NamedNodeMap a, NamedNodeMap b) {
@@ -97,7 +97,12 @@ public class XmlUtils {
 		}
 		return true;
 	}
-
+	
+	public static boolean isTextValueEqual(Node nodeA, Node nodeB) {
+		String a = nodeA.getTextContent();
+		String b = nodeB.getTextContent();
+		return a == b || (a == null || a.equals(b));
+	}
 
     private XmlUtils () {
     	

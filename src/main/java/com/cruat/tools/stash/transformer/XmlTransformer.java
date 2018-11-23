@@ -135,7 +135,6 @@ public class XmlTransformer extends AbstractTransformer {
 	}
 
 
-
 	boolean handleRemoveIfPresent(Instruction i, Node e) {
 		if (i.getDirectives().contains(REMOVE)) {
 			e.getParentNode().removeChild(e);
