@@ -70,11 +70,11 @@ public class XmlUtils {
 	
 
 	/**
-	 * 
 	 * @param target
-	 *            The node we're searching for
-	 * @param searchable
 	 *            Where we are looking for the node
+	 * 
+	 * @param searchable
+	 *            The node we're searching for
 	 * @return
 	 */
 	public static boolean isNodeExisting(Node target, Node searchable) {
