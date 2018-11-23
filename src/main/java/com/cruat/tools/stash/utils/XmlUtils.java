@@ -1,5 +1,6 @@
 package com.cruat.tools.stash.utils;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -51,6 +53,51 @@ public class XmlUtils {
 		}
 		return results;
 	}
+	
+
+	public static boolean isNodeExisting(Node target, Node searchable) {
+		String name = searchable.getNodeName();
+		NodeList list = target.getChildNodes();
+		NamedNodeMap attrs = searchable.getAttributes();
+
+		// check names
+		List<Node> possibleDuplicates = new ArrayList<>();
+		for (int i = 0; i < list.getLength(); i++) {
+			Node child = list.item(i);
+			if (name.equals(child.getNodeName())) {
+				possibleDuplicates.add(child);
+			}
+		}
+		// check attributes and values
+		Iterator<Node> it = possibleDuplicates.iterator();
+		while (it.hasNext()) {
+			Node child = it.next();
+			if (isAttributesEqual(attrs, child.getAttributes())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isAttributesEqual(NamedNodeMap a, NamedNodeMap b) {
+		if (a == b) {
+			return true;
+		}
+
+		if (a == null || a.getLength() != b.getLength()) {
+			return false;
+		}
+
+		for (int i = 0; i < b.getLength(); i++) {
+			Node childAttr = b.item(i);
+			Node attr = a.getNamedItem(childAttr.getNodeName());
+			if (!attr.getNodeValue().equals(childAttr.getNodeValue())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 
     private XmlUtils () {
     	

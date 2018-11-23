@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -20,7 +18,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -119,7 +116,7 @@ public class XmlTransformer extends AbstractTransformer {
 						.getChildNodes();
 				for (int c = 0; c < list.getLength(); c++) {
 					Node n = list.item(c);
-					if (!isNodeExisting(e, n)) {
+					if (!XmlUtils.isNodeExisting(e, n)) {
 						Node imported = document.importNode(n, true);
 						e.appendChild(imported);
 					}
@@ -137,48 +134,7 @@ public class XmlTransformer extends AbstractTransformer {
 		}
 	}
 
-	boolean isNodeExisting(Node target, Node searchable) {
-		String name = searchable.getNodeName();
-		NodeList list = target.getChildNodes();
-		NamedNodeMap attrs = searchable.getAttributes();
 
-		// check names
-		List<Node> possibleDuplicates = new ArrayList<>();
-		for (int i = 0; i < list.getLength(); i++) {
-			Node child = list.item(i);
-			if (name.equals(child.getNodeName())) {
-				possibleDuplicates.add(child);
-			}
-		}
-		// check attributes and values
-		Iterator<Node> it = possibleDuplicates.iterator();
-		while (it.hasNext()) {
-			Node child = it.next();
-			if (isAttributesEqual(attrs, child.getAttributes())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	boolean isAttributesEqual(NamedNodeMap a, NamedNodeMap b) {
-		if (a == b) {
-			return true;
-		}
-
-		if (a == null || a.getLength() != b.getLength()) {
-			return false;
-		}
-
-		for (int i = 0; i < b.getLength(); i++) {
-			Node childAttr = b.item(i);
-			Node attr = a.getNamedItem(childAttr.getNodeName());
-			if (!attr.getNodeValue().equals(childAttr.getNodeValue())) {
-				return false;
-			}
-		}
-		return true;
-	}
 
 	boolean handleRemoveIfPresent(Instruction i, Node e) {
 		if (i.getDirectives().contains(REMOVE)) {
