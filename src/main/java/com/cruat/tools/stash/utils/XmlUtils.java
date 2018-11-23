@@ -72,14 +72,14 @@ public class XmlUtils {
 		Iterator<Node> it = possibleDuplicates.iterator();
 		while (it.hasNext()) {
 			Node child = it.next();
-			if (isAttributesEqual(attrs, child.getAttributes())) {
+			if (areAttributesEqual(attrs, child.getAttributes())) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static boolean isAttributesEqual(NamedNodeMap a, NamedNodeMap b) {
+	public static boolean areAttributesEqual(NamedNodeMap a, NamedNodeMap b) {
 		if (a == b) {
 			return true;
 		}
