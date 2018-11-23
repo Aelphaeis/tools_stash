@@ -1,4 +1,6 @@
 package com.cruat.tools.stash.utils;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.xml.namespace.QName;
@@ -23,24 +25,31 @@ public class XmlUtils {
 	 * @return
 	 */
 	public static Optional<Node> findFirst(String x, Document d) {
-		return findFirst(x, d, XPathConstants.NODESET);
+		List<Node> nodes = find(x, d, XPathConstants.NODESET);
+		Node n = nodes.isEmpty() ? null : nodes.get(0);
+		return Optional.ofNullable(n);
 	}
-	
-	static Optional<Node> findFirst(String x, Document d, QName q){
+
+	public static List<Node> find(String x, Document d) {
+		return find(x, d, XPathConstants.NODESET);
+	}
+
+	public static List<Node> find(String x, Document d, QName q) {
 		XPath xp = XPathFactory.newInstance().newXPath();
 		NodeList nodes;
 		try {
 			nodes = (NodeList) xp.evaluate(x, d, q);
-		}
-		catch(XPathExpressionException e) {
+		} catch (XPathExpressionException e) {
 			String err = "Illegal XPath Expression [%s]";
 			err = String.format(err, x);
-			
 			throw new IllegalArgumentException(err, e);
 		}
 
-		Node n = nodes.getLength() == 0 ? null : nodes.item(0);
-		return Optional.ofNullable(n);
+		List<Node> results = new ArrayList<>();
+		for (int i = 0; i < nodes.getLength(); i++) {
+			results.add(nodes.item(i));
+		}
+		return results;
 	}
 
     private XmlUtils () {
