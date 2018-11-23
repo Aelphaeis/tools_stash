@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.xml.namespace.QName;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -54,7 +59,24 @@ public class XmlUtils {
 		return results;
 	}
 	
+	public static Document clone(Document doc) throws TransformerException {
+		TransformerFactory tfactory = TransformerFactory.newInstance();
+		Transformer tx   = tfactory.newTransformer();
+		DOMSource source = new DOMSource(doc);
+		DOMResult result = new DOMResult();
+		tx.transform(source,result);
+		return (Document)result.getNode();
+	}
+	
 
+	/**
+	 * @param target
+	 *            Where we are looking for the node
+	 * 
+	 * @param searchable
+	 *            The node we're searching for
+	 * @return
+	 */
 	public static boolean isNodeExisting(Node target, Node searchable) {
 		String name = searchable.getNodeName();
 		NodeList list = target.getChildNodes();

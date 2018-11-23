@@ -1,6 +1,5 @@
 package com.cruat.tools.stash.transformer;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,14 +18,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.cruat.tools.stash.config.Instruction;
 import com.cruat.tools.stash.directives.Directive;
+import com.cruat.tools.stash.directives.xml.Add;
 import com.cruat.tools.stash.exceptions.NotImplementedException;
 import com.cruat.tools.stash.exceptions.StashException;
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
 import com.cruat.tools.stash.utils.Serializer;
 import com.cruat.tools.stash.utils.XmlUtils;
 
@@ -35,6 +33,7 @@ public class XmlTransformer extends AbstractTransformer {
 	public static final String ADD = "add";
 	public static final String REMOVE = "remove";
 	private static final Logger logger = LogManager.getLogger();
+	private static final String UNK_ERR = "Unknown error occurred";
 	Document document;
 
 	public XmlTransformer() {
@@ -47,24 +46,13 @@ public class XmlTransformer extends AbstractTransformer {
 
 	@Override
 	public void load(InputStream stream) throws IOException {
-		DocumentBuilderFactory docFactory;
 		try {
-			docFactory = DocumentBuilderFactory.newInstance();
-
-			docFactory.setValidating(false);
-			docFactory.setNamespaceAware(true);
-			docFactory.setFeature("http://xml.org/sax/features/namespaces", false);
-			docFactory.setFeature("http://xml.org/sax/features/validation", false);
-			docFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-			docFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-			docFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-			docFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-
+			DocumentBuilderFactory docFactory = documentFactory();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			document = docBuilder.parse(stream);
 		} catch (ParserConfigurationException e) {
 			// this is impossible and not recoverable
-			logger.error("Unknown error occurred", e);
+			logger.error(UNK_ERR, e);
 			throw new IllegalStateException(e);
 		} catch (SAXException e) {
 			logger.error("malformed xml loaded", e);
@@ -104,29 +92,15 @@ public class XmlTransformer extends AbstractTransformer {
 	public void save(OutputStream stream) throws IOException {
 		Serializer.serialize(document, new PrintWriter(stream));
 	}
+	
+	
+	public Document getDocument() {
+		return document;
+	}
 
 	boolean handleAddIfPresent(Instruction i, Node e) {
 		if (i.getDirectives().contains(ADD)) {
-			String value = i.getValue();
-			value = String.format("<wrapper>%s</wrapper>", value);
-			byte[] valueBytes = value.getBytes();
-			ByteArrayInputStream is = new ByteArrayInputStream(valueBytes);
-			try {
-				NodeList list = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is).getDocumentElement()
-						.getChildNodes();
-				for (int c = 0; c < list.getLength(); c++) {
-					Node n = list.item(c);
-					if (!XmlUtils.isNodeExisting(e, n)) {
-						Node imported = document.importNode(n, true);
-						e.appendChild(imported);
-					}
-				}
-
-			} catch (Exception ex) {
-				String err = "error adding {} to {}";
-				logger.error(err, i.getValue(), Serializer.serialize(e));
-				throw new StashRuntimeException(ex);
-			}
+			new Add().execute(i, this);
 			return true;
 
 		} else {
@@ -145,6 +119,27 @@ public class XmlTransformer extends AbstractTransformer {
 		}
 	}
 
+	private DocumentBuilderFactory documentFactory() {
+		DocumentBuilderFactory dbf;
+		try {
+			dbf = DocumentBuilderFactory.newInstance();
+
+			dbf.setValidating(false);
+			dbf.setNamespaceAware(true);
+			dbf.setFeature("http://xml.org/sax/features/namespaces", false);
+			dbf.setFeature("http://xml.org/sax/features/validation", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			
+			return dbf;
+		} catch (ParserConfigurationException e) {
+			// this is impossible and not recoverable
+			logger.error(UNK_ERR, e);
+			throw new IllegalStateException(e);
+		}
+	}
 
 	@Override
 	public void validateDirectivesInternal(Instruction i) throws StashException {
