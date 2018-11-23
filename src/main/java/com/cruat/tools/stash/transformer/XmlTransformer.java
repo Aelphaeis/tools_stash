@@ -95,20 +95,9 @@ public class XmlTransformer extends AbstractTransformer {
 		Serializer.serialize(document, new PrintWriter(stream));
 	}
 	
-	public Document cloneDocument() {
-		try {
-			DocumentBuilderFactory docFactory = documentFactory();
-			DocumentBuilder builder = docFactory.newDocumentBuilder();
-			Document doc = builder.newDocument();
-			Node node = doc.importNode(document, true);
-			doc.appendChild(node);
-			return doc;
-		}
-		catch (ParserConfigurationException e) {
-			// this is impossible and not recoverable
-			logger.error("Unknown error occurred", e);
-			throw new IllegalStateException(e);
-		} 
+	
+	public Document getDocument() {
+		return document;
 	}
 
 	boolean handleAddIfPresent(Instruction i, Node e) {

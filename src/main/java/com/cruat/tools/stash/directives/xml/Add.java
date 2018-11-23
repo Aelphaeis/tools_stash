@@ -30,7 +30,7 @@ public class Add implements TransformDirective {
 	public void execute(Instruction i, Transformer t) {
 		XmlTransformer transformer = resolveTransformer(t);
 		String xpath = i.getName();
-		Document document = transformer.cloneDocument();
+		Document document = transformer.getDocument();
 		Optional<Node> node = XmlUtils.findFirst(xpath, document);
 		
 		if(!node.isPresent()) {
@@ -49,7 +49,7 @@ public class Add implements TransformDirective {
 					.getChildNodes();
 			for (int c = 0; c < list.getLength(); c++) {
 				Node n = list.item(c);
-				if (XmlUtils.isNodeExisting(e, n)) {
+				if (XmlUtils.isNodeExisting(n, e)) {
 					Node imported = document.importNode(n, true);
 					e.appendChild(imported);
 				}
