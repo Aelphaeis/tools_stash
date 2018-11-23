@@ -47,19 +47,8 @@ public class XmlTransformer extends AbstractTransformer {
 
 	@Override
 	public void load(InputStream stream) throws IOException {
-		DocumentBuilderFactory docFactory;
 		try {
-			docFactory = DocumentBuilderFactory.newInstance();
-
-			docFactory.setValidating(false);
-			docFactory.setNamespaceAware(true);
-			docFactory.setFeature("http://xml.org/sax/features/namespaces", false);
-			docFactory.setFeature("http://xml.org/sax/features/validation", false);
-			docFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-			docFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-			docFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-			docFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-
+			DocumentBuilderFactory docFactory = documentFactory();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			document = docBuilder.parse(stream);
 		} catch (ParserConfigurationException e) {
@@ -145,6 +134,27 @@ public class XmlTransformer extends AbstractTransformer {
 		}
 	}
 
+	private DocumentBuilderFactory documentFactory() {
+		DocumentBuilderFactory dbf;
+		try {
+			dbf = DocumentBuilderFactory.newInstance();
+
+			dbf.setValidating(false);
+			dbf.setNamespaceAware(true);
+			dbf.setFeature("http://xml.org/sax/features/namespaces", false);
+			dbf.setFeature("http://xml.org/sax/features/validation", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+			
+			return dbf;
+		} catch (ParserConfigurationException e) {
+			// this is impossible and not recoverable
+			logger.error("Unknown error occurred", e);
+			throw new IllegalStateException(e);
+		}
+	}
 
 	@Override
 	public void validateDirectivesInternal(Instruction i) throws StashException {
