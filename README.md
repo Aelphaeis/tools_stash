@@ -28,8 +28,6 @@ The stash tool is located in the cruat repository
 	<dependencies>
 ```
 
-Then, you can add 
-
 
 # Getting Started 
 To use this tool, start with <b>com.cruat.tools.stash.config.Configurator</b>
