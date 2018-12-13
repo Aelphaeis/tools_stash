@@ -2,6 +2,35 @@
 
 Welcome to the Stash Tool. The smart way automatically configure environments.
 
+# Including Stash Tool as a dependency
+The stash tool is located in the cruat repository
+ - To access the cruat repository simply add the following to your pom.xml
+
+```
+	<repositories>
+		<repository>
+			<id>repo.cruat</id>
+			<name>cruat repository</name>
+			<url>http://repo.cruat.com/snapshots</url>
+		</repository>
+ 	</repositories>	
+```
+ - To access the stash tool as a dependency use
+```
+
+	<dependencies>
+		...
+		<dependency>
+			<groupId>com.cruat.tools</groupId>
+			<artifactId>stash</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	<dependencies>
+	```
+
+Then, you can add 
+
+
 # Getting Started 
 To use this tool, start with <b>com.cruat.tools.stash.config.Configurator</b>
 This class has a method called execute which takes a string representing a path.
