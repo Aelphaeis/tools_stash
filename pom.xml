@@ -11,7 +11,7 @@
 	<name>stash</name>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>ISO8859_1</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
