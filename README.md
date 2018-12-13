@@ -26,7 +26,7 @@ The stash tool is located in the cruat repository
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	<dependencies>
-	```
+```
 
 Then, you can add 
 
