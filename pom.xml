@@ -76,7 +76,29 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<extensions>
+			<extension>
+				<!-- see https://github.com/spring-projects/aws-maven -->
+				<!-- Necessary to push maven projects to s3 -->
+				<groupId>org.springframework.build</groupId>
+				<artifactId>aws-maven</artifactId>
+				<version>5.0.0.RELEASE</version>
+			</extension>
+		</extensions>
 	</build>
+	
+	<distributionManagement>
+		<repository>
+			<id>s3-maven-release-repo</id>
+			<name>aws release repository</name>
+			<url>s3://repo.cruat.com/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>s3-maven-snapshot-repo</id>
+			<name>aws snapshot repository</name>
+			<url>s3://repo.cruat.com/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 	
 	<contributors>
 		<contributor>
