@@ -78,6 +78,14 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<contributors>
+		<contributor>
+			<name>Joseph Morain</name>
+			<email>joseph.morain@live.ca</email>
+			<url>http://www.crusnikatelier.com</url>
+		</contributor>
+	</contributors>
 	<scm>
 		<url>https://github.com/Aelphaeis/tools_stash</url>
 	</scm>
