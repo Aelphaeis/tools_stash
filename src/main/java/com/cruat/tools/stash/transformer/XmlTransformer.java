@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import com.cruat.tools.stash.config.Instruction;
 import com.cruat.tools.stash.directives.Directive;
 import com.cruat.tools.stash.directives.xml.Add;
+import com.cruat.tools.stash.directives.xml.Remove;
 import com.cruat.tools.stash.exceptions.NotImplementedException;
 import com.cruat.tools.stash.exceptions.StashException;
 import com.cruat.tools.stash.utils.Serializer;
@@ -52,7 +53,7 @@ public class XmlTransformer extends AbstractTransformer {
 			document = docBuilder.parse(stream);
 		} catch (ParserConfigurationException e) {
 			// this is impossible and not recoverable
-			logger.error(UNK_ERR, e);
+			logger.fatal(UNK_ERR, e);
 			throw new IllegalStateException(e);
 		} catch (SAXException e) {
 			logger.error("malformed xml loaded", e);
@@ -111,7 +112,7 @@ public class XmlTransformer extends AbstractTransformer {
 
 	boolean handleRemoveIfPresent(Instruction i, Node e) {
 		if (i.getDirectives().contains(REMOVE)) {
-			e.getParentNode().removeChild(e);
+			new Remove().execute(i, this);
 			return true;
 
 		} else {
