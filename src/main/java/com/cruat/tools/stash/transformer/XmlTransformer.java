@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -71,9 +72,9 @@ public class XmlTransformer extends AbstractTransformer {
 			Optional<Node> t = XmlUtils.findFirst(key, document);
 			if (t.isPresent()) {
 				Node e = t.get();
-				if (handleAddIfPresent(inst, e)) {
+				if (handleAddIfPresent(inst)) {
 					logger.trace("added node to [{}]", key);
-				} else if (handleRemoveIfPresent(inst, e)) {
+				} else if (handleRemoveIfPresent(inst)) {
 					logger.trace("removed node from [{}]", key);
 				} else {
 					e.setTextContent(value);
@@ -99,7 +100,7 @@ public class XmlTransformer extends AbstractTransformer {
 		return document;
 	}
 
-	boolean handleAddIfPresent(Instruction i, Node e) {
+	boolean handleAddIfPresent(Instruction i) {
 		if (i.getDirectives().contains(ADD)) {
 			new Add().execute(i, this);
 			return true;
@@ -110,7 +111,7 @@ public class XmlTransformer extends AbstractTransformer {
 	}
 
 
-	boolean handleRemoveIfPresent(Instruction i, Node e) {
+	boolean handleRemoveIfPresent(Instruction i) {
 		if (i.getDirectives().contains(REMOVE)) {
 			new Remove().execute(i, this);
 			return true;
@@ -120,13 +121,14 @@ public class XmlTransformer extends AbstractTransformer {
 		}
 	}
 
-	private DocumentBuilderFactory documentFactory() {
+	private static DocumentBuilderFactory documentFactory() {
 		DocumentBuilderFactory dbf;
 		try {
 			dbf = DocumentBuilderFactory.newInstance();
 
 			dbf.setValidating(false);
 			dbf.setNamespaceAware(true);
+			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
 			dbf.setFeature("http://xml.org/sax/features/namespaces", false);
 			dbf.setFeature("http://xml.org/sax/features/validation", false);
 			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
