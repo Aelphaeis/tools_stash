@@ -17,14 +17,13 @@ import org.junit.Test;
 
 import stash.config.Instruction;
 import stash.config.InstructionBuilder;
-import stash.transformer.PropertyTransformer;
 
 public class PropertyTransformerTest {
 
 	private static final String TEST_FILE = "/TestFolder/test.properties";
 	private static final String TEST_FILE_LOC = "src/test/resources";
 
-	PropertyTransformer t;
+	private PropertyTransformer t;
 	@Before
 	public void setup() {
 		t =	 new PropertyTransformer();
