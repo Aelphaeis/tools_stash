@@ -45,13 +45,16 @@ public class PropertyTransformer extends AbstractTransformer {
 		}
 	}
 
+	@Override
 	public void transformInternal(Map<String, Instruction> kvp) {
+		logger.entry(kvp);
 		for (Entry<String, Instruction> entry : kvp.entrySet()) {
 			String key = entry.getKey();
 			Instruction inst = entry.getValue();
 			config.setProperty(key, inst.getValue());
 			logger.trace("modifying {} to {}", key, inst.getValue());
 		}
+		logger.traceExit();
 	}
 
 	@Override
