@@ -1,9 +1,8 @@
 package stash.transformer;
 
-import java.util.AbstractMap.SimpleEntry;
-
 import static stash.utils.Reflector.getClassesForPackage;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class TransformerFactory {
 	 * we never expect this to change after compile time.
 	 */
 	static {
-		logger.trace("beginning initialization");
+		logger.traceEntry();
 		Package directivePkg = Directive.class.getPackage();
 		//Get classes that implement Directive with parameterless ctor
 		Map<Class<? extends Transformer>, Set<Directive>> cache;
@@ -59,8 +58,8 @@ public class TransformerFactory {
 			for(Directive d : directives) {
 				logger.trace("Directive [{}] cached", d.getClass().getName());
 			}
-			logger.trace("initialization completed");
 		}
+		logger.traceExit();
 	}
 	
 	public Transformer buildTransformer(String filePath) {
