@@ -2,13 +2,23 @@
 <!DOCTYPE xml>
 <Configuration status="WARN">
 	<Appenders>
-		<Console name="console" target="SYSTEM_OUT">
+		<Console name="default" target="SYSTEM_OUT">
+			<MarkerFilter marker="FLOW" onMatch="DENY" onMismatch="ACCEPT"/>
 			<PatternLayout pattern="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} %l: %m%n" />
+		</Console>
+		<Console name="shorthand" target="SYSTEM_OUT" direct="true">
+			<MarkerFilter marker="FLOW" onMatch="DENY" onMismatch="ACCEPT"/>
+			<PatternLayout pattern="[%-p{length=1}]%d %l: %m%n" />
+		</Console>
+		<Console name="flowlog">
+     		<MarkerFilter marker="FLOW" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="[%-p{length=1}]%d %l: %m%n" />
 		</Console>
 	</Appenders>
 	<Loggers>
 		<Root level="OFF">
-			<AppenderRef ref="console" />
+			<AppenderRef ref="shorthand"/>
+			<AppenderRef ref="flowlog"/>
 		</Root>
 	</Loggers>
 </Configuration>	
