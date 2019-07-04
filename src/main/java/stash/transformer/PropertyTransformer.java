@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +15,9 @@ import org.apache.commons.configuration.PropertiesConfigurationLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.directives.Directive;
-import com.cruat.tools.stash.exceptions.StashException;
+import stash.config.Instruction;
+import stash.directives.Directive;
+import stash.exceptions.StashException;
 
 public class PropertyTransformer extends AbstractTransformer {
 	private static final Logger logger = LogManager.getLogger();

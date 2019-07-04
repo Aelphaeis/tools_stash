@@ -1,6 +1,6 @@
-package com.cruat.tools.stash.directives;
+package stash.directives;
 
-import com.cruat.tools.stash.config.Instruction;
+import stash.config.Instruction;
 
 public interface InstructionDirective extends Directive {
 	Instruction execute(Instruction i);

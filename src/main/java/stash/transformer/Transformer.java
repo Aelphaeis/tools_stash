@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.io.OutputStream;
 import java.util.Map;
 import java.util.Set;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.directives.Directive;
+import stash.config.Instruction;
+import stash.directives.Directive;
 
 /**
  * This object is intended to template the process of modifying a file.

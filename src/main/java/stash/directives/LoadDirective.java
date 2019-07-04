@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.directives;
+package stash.directives;
 
 public interface LoadDirective extends Directive {
 

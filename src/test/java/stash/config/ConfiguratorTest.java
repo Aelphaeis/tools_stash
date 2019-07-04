@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.config;
+package stash.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.cruat.tools.stash.config.Configurator;
-import com.cruat.tools.stash.config.Instructions;
+import stash.config.Configurator;
+import stash.config.Instructions;
 
 public class ConfiguratorTest {
 

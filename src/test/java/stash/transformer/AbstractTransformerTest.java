@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,11 +11,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.config.InstructionBuilder;
-import com.cruat.tools.stash.exceptions.AggregationException;
-import com.cruat.tools.stash.exceptions.StashException;
-import com.cruat.tools.stash.transformer.AbstractTransformer;
+import stash.config.Instruction;
+import stash.config.InstructionBuilder;
+import stash.exceptions.AggregationException;
+import stash.exceptions.StashException;
+import stash.transformer.AbstractTransformer;
 
 public class AbstractTransformerTest {
 

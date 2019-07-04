@@ -1,10 +1,10 @@
-package com.cruat.tools.stash.directives.props;
+package stash.directives.props;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.directives.Directive;
-import com.cruat.tools.stash.directives.InstructionDirective;
-import com.cruat.tools.stash.directives.Supports;
-import com.cruat.tools.stash.transformer.PropertyTransformer;
+import stash.config.Instruction;
+import stash.directives.Directive;
+import stash.directives.InstructionDirective;
+import stash.directives.Supports;
+import stash.transformer.PropertyTransformer;
 
 @Supports({ PropertyTransformer.class })
 public class Unwrap implements InstructionDirective, Directive{

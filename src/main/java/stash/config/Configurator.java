@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.config;
+package stash.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.tools.stash.transformer.Transformer;
-import com.cruat.tools.stash.transformer.TransformerFactory;
+import stash.transformer.Transformer;
+import stash.transformer.TransformerFactory;
 
 public class Configurator {
 

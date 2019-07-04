@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.utils;
+package stash.utils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.junit.Test;
 
-import com.cruat.tools.stash.utils.Serializer;
+import stash.utils.Serializer;
 
 public class SerializerTest {
 

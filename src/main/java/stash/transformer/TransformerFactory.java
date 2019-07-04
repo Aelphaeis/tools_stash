@@ -1,8 +1,8 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import java.util.AbstractMap.SimpleEntry;
 
-import static com.cruat.tools.stash.utils.Reflector.getClassesForPackage;
+import static stash.utils.Reflector.getClassesForPackage;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.tools.stash.directives.Directive;
-import com.cruat.tools.stash.utils.DefaultMap;
-import com.cruat.tools.stash.utils.Reflector;
+import stash.directives.Directive;
+import stash.utils.DefaultMap;
+import stash.utils.Reflector;
 
 public class TransformerFactory {
 	public static final Map<Class<? extends Transformer>, Set<Directive>> CACHE;
@@ -28,17 +28,16 @@ public class TransformerFactory {
 	 * we never expect this to change after compile time.
 	 */
 	static {
+		logger.trace("beginning initialization");
 		Package directivePkg = Directive.class.getPackage();
 		//Get classes that implement Directive with parameterless ctor
 		Map<Class<? extends Transformer>, Set<Directive>> cache;
 		cache = Collections.unmodifiableMap(getClassesForPackage(directivePkg)
 			.stream()
 			.filter(Directive.class::isAssignableFrom)
-			.peek(p-> logger.info("Found directive {}", p.getName()))
 			.filter(Reflector::isInstantiable)
 			.map(Reflector::initParamCtor)
 			.filter(Objects::nonNull)
-			.peek(p-> logger.info("Instansiated {}", p))
 			.map(Directive.class::cast)
 			.flatMap(d -> d.supports()
 				.stream()
@@ -48,6 +47,20 @@ public class TransformerFactory {
 					.mapping(e -> e.getKey(), Collectors.toSet()))));
 		cache = new DefaultMap<>(cache, new HashSet<>());
 		CACHE = Collections.unmodifiableMap(cache);
+		
+		if (logger.isTraceEnabled()) {
+			Set<Directive> directives = CACHE.values().stream()
+					.flatMap(p -> p.stream())
+					.collect(Collectors.toSet());
+			
+			for (Class<? extends Transformer> t : CACHE.keySet()) {
+				logger.trace("Transformer [{}] directives cached", t.getName());
+			}
+			for(Directive d : directives) {
+				logger.trace("Directive [{}] cached", d.getClass().getName());
+			}
+			logger.trace("initialization completed");
+		}
 	}
 	
 	public Transformer buildTransformer(String filePath) {

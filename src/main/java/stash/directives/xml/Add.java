@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.directives.xml;
+package stash.directives.xml;
 
 import java.io.ByteArrayInputStream;
 import java.util.Optional;
@@ -12,15 +12,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.directives.Supports;
-import com.cruat.tools.stash.directives.TransformDirective;
-import com.cruat.tools.stash.exceptions.NotImplementedException;
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
-import com.cruat.tools.stash.transformer.Transformer;
-import com.cruat.tools.stash.transformer.XmlTransformer;
-import com.cruat.tools.stash.utils.Serializer;
-import com.cruat.tools.stash.utils.XmlUtils;
+import stash.config.Instruction;
+import stash.directives.Supports;
+import stash.directives.TransformDirective;
+import stash.exceptions.NotImplementedException;
+import stash.exceptions.StashRuntimeException;
+import stash.transformer.Transformer;
+import stash.transformer.XmlTransformer;
+import stash.utils.Serializer;
+import stash.utils.XmlUtils;
 
 @Supports({ XmlTransformer.class })
 public class Add implements TransformDirective {

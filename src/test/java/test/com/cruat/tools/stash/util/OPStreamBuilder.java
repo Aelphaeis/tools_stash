@@ -8,7 +8,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.PropertiesConfigurationLayout;
 
-import com.cruat.tools.stash.config.InstructionFileParser.CustomConfig;
+import stash.config.InstructionFileParser.CustomConfig;
 
 public class OPStreamBuilder {
 	StringBuilder builder = new StringBuilder();

@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.config;
+package stash.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,11 +8,10 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.config.InstructionFileParser;
-import com.cruat.tools.stash.config.Instructions;
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
-
+import stash.config.Instruction;
+import stash.config.InstructionFileParser;
+import stash.config.Instructions;
+import stash.exceptions.StashRuntimeException;
 import test.com.cruat.tools.stash.util.OPStreamBuilder;
 
 public class InstructionFileParserTest {

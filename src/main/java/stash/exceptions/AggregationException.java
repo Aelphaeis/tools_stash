@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.exceptions;
+package stash.exceptions;
 
 import java.util.ArrayList;
 import java.util.Collection;

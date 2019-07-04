@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.utils;
+package stash.utils;
 
 import java.util.HashMap;
 import java.util.Map;

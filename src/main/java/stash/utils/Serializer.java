@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.utils;
+package stash.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

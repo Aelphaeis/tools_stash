@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,12 +22,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.config.InstructionBuilder;
-import com.cruat.tools.stash.exceptions.NotImplementedException;
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
-import com.cruat.tools.stash.transformer.XmlTransformer;
-import com.cruat.tools.stash.utils.XmlUtils;
+import stash.config.Instruction;
+import stash.config.InstructionBuilder;
+import stash.exceptions.NotImplementedException;
+import stash.exceptions.StashRuntimeException;
+import stash.transformer.XmlTransformer;
+import stash.utils.XmlUtils;
 
 public class XmlTransformerTest {
 

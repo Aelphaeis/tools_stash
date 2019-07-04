@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.utils;
+package stash.utils;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
+
+import stash.utils.DecoratorMap;
 
 public class DecoratorMapTest {
 

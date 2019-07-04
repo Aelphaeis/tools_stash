@@ -1,13 +1,13 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.cruat.tools.stash.transformer.PropertyTransformer;
-import com.cruat.tools.stash.transformer.Transformer;
-import com.cruat.tools.stash.transformer.TransformerFactory;
-import com.cruat.tools.stash.transformer.XmlTransformer;
+import stash.transformer.PropertyTransformer;
+import stash.transformer.Transformer;
+import stash.transformer.TransformerFactory;
+import stash.transformer.XmlTransformer;
 
 public class TransformerFactoryTest {
 

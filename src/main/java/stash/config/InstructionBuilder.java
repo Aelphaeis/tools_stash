@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.config;
+package stash.config;
 
 import java.util.ArrayList;
 import java.util.Collection;

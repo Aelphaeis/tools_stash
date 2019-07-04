@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,9 +15,9 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.config.InstructionBuilder;
-import com.cruat.tools.stash.transformer.PropertyTransformer;
+import stash.config.Instruction;
+import stash.config.InstructionBuilder;
+import stash.transformer.PropertyTransformer;
 
 public class PropertyTransformerTest {
 

@@ -1,9 +1,9 @@
-package com.cruat.tools.stash;
+package stash;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.tools.stash.config.Configurator;
+import stash.config.Configurator;
 
 public class Stash {
 	private static final String DEFAULT_LOC = "src/main/resources/StashConfig";

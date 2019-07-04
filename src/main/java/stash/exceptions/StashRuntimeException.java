@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.exceptions;
+package stash.exceptions;
 
 public class StashRuntimeException extends RuntimeException {
 

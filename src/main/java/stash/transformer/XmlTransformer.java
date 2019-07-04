@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,14 +21,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.directives.Directive;
-import com.cruat.tools.stash.directives.xml.Add;
-import com.cruat.tools.stash.directives.xml.Remove;
-import com.cruat.tools.stash.exceptions.NotImplementedException;
-import com.cruat.tools.stash.exceptions.StashException;
-import com.cruat.tools.stash.utils.Serializer;
-import com.cruat.tools.stash.utils.XmlUtils;
+import stash.config.Instruction;
+import stash.directives.Directive;
+import stash.directives.xml.Add;
+import stash.directives.xml.Remove;
+import stash.exceptions.NotImplementedException;
+import stash.exceptions.StashException;
+import stash.utils.Serializer;
+import stash.utils.XmlUtils;
 
 public class XmlTransformer extends AbstractTransformer {
 

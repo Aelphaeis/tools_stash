@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.config;
+package stash.config;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -27,7 +27,7 @@ import org.apache.commons.configuration.PropertiesConfiguration.PropertiesWriter
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
+import stash.exceptions.StashRuntimeException;
 
 public class InstructionFileParser {
 	public static final String ASSIGNMENT_DELIMITERS = "=:";

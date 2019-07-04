@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.transformer;
+package stash.transformer;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -15,15 +15,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import stash.config.Instruction;
+import stash.directives.Directive;
+import stash.directives.InstructionDirective;
+import stash.exceptions.AggregationException;
+import stash.exceptions.StashException;
+import stash.exceptions.StashRuntimeException;
+
 import java.util.Optional;
 import java.util.Set;
-
-import com.cruat.tools.stash.config.Instruction;
-import com.cruat.tools.stash.directives.Directive;
-import com.cruat.tools.stash.directives.InstructionDirective;
-import com.cruat.tools.stash.exceptions.AggregationException;
-import com.cruat.tools.stash.exceptions.StashException;
-import com.cruat.tools.stash.exceptions.StashRuntimeException;
 
 public abstract class AbstractTransformer implements Transformer {
 	Set<Directive> directives;

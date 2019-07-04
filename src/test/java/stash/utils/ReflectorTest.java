@@ -1,4 +1,4 @@
-package com.cruat.tools.stash.utils;
+package stash.utils;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.cruat.tools.stash.utils.Reflector;
+import stash.utils.Reflector;
 
 public class ReflectorTest {
 
