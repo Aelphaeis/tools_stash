@@ -15,6 +15,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import stash.config.Instruction;
 import stash.directives.Directive;
@@ -23,10 +28,8 @@ import stash.exceptions.AggregationException;
 import stash.exceptions.StashException;
 import stash.exceptions.StashRuntimeException;
 
-import java.util.Optional;
-import java.util.Set;
-
 public abstract class AbstractTransformer implements Transformer {
+	private static final Logger logger = LogManager.getLogger();
 	Set<Directive> directives;
 	
 	AbstractTransformer(){
@@ -34,7 +37,9 @@ public abstract class AbstractTransformer implements Transformer {
 	}
 	
 	AbstractTransformer(Set<Directive> directives) {
+		logger.entry(directives);
 		this.directives = Collections.unmodifiableSet(directives);
+		logger.traceExit();
 	}
 	
 	protected boolean supports(String name) {
