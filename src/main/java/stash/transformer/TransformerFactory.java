@@ -75,8 +75,7 @@ public class TransformerFactory {
 		} else if (type.equalsIgnoreCase(".properties")) {
 			return new PropertyTransformer();
 		} else {
-			String err = "Unknown file type.";
-			throw new IllegalArgumentException(err);
+			return new DefaultTransformer();
 		}
 	}
 }

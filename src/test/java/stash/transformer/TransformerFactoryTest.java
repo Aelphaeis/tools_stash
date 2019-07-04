@@ -26,9 +26,10 @@ public class TransformerFactoryTest {
 		assertEquals(PropertyTransformer.class, t.getClass());
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test
 	public void buildTransformer_jsonFile_exception() {
 		TransformerFactory tf = new TransformerFactory();
-		tf.buildTransformer("settings.json");
+		Transformer t = tf.buildTransformer("settings.json");
+		assertEquals(DefaultTransformer.class, t.getClass());
 	}
 }
