@@ -8,9 +8,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.junit.Test;
 
-import stash.config.Instruction;
-import stash.config.InstructionFileParser;
-import stash.config.Instructions;
 import stash.exceptions.StashRuntimeException;
 import test.stash.util.OPStreamBuilder;
 

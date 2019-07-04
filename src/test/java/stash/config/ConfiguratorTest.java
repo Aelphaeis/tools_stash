@@ -9,9 +9,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import stash.config.Configurator;
-import stash.config.Instructions;
-
 public class ConfiguratorTest {
 
 	private static final String TEST_FILE_LOC = "src/test/resources";

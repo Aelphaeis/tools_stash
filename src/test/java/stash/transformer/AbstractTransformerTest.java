@@ -15,7 +15,6 @@ import stash.config.Instruction;
 import stash.config.InstructionBuilder;
 import stash.exceptions.AggregationException;
 import stash.exceptions.StashException;
-import stash.transformer.AbstractTransformer;
 
 public class AbstractTransformerTest {
 
