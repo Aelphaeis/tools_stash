@@ -1,13 +1,8 @@
 package stash.transformer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import stash.transformer.PropertyTransformer;
-import stash.transformer.Transformer;
-import stash.transformer.TransformerFactory;
-import stash.transformer.XmlTransformer;
 
 public class TransformerFactoryTest {
 
