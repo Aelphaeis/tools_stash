@@ -61,7 +61,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.cruat.tools.stash.Stash</mainClass>
+							<mainClass>stash.Stash</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

@@ -1,4 +1,4 @@
-package test.com.cruat.tools.stash.util;
+package test.stash.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

@@ -12,7 +12,7 @@ import stash.config.Instruction;
 import stash.config.InstructionFileParser;
 import stash.config.Instructions;
 import stash.exceptions.StashRuntimeException;
-import test.com.cruat.tools.stash.util.OPStreamBuilder;
+import test.stash.util.OPStreamBuilder;
 
 public class InstructionFileParserTest {
 	
