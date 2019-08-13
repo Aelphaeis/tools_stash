@@ -123,7 +123,7 @@ public class XmlUtils {
 	public static boolean isTextValueEqual(Node nodeA, Node nodeB) {
 		String a = nodeA.getTextContent();
 		String b = nodeB.getTextContent();
-		return a == b || (a == null || a.equals(b));
+		return a == null ? b == null : a.equals(b);
 	}
 
     private XmlUtils () {
