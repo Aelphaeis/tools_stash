@@ -30,13 +30,18 @@ public class PropertyTransformerTest {
 	}
 	
 	@Test
+	public void test() {
+		
+		
+	}
+	
+	@Test
 	public void transform_unwrap_unwrappedCorrectly() throws IOException {
 		String input = "value,value2,value3";
 		String[] valArr = input.split(",");
 		String value = Arrays.toString(valArr);
 		
 		Map<String, Instruction> m = new HashMap<>();
-		PropertyTransformer t = new PropertyTransformer();
 		
 		InstructionBuilder builder = new InstructionBuilder();
 		builder.name("name").value(value).directive("unwrap");
