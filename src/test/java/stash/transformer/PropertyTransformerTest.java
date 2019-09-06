@@ -20,6 +20,8 @@ import stash.config.InstructionBuilder;
 
 public class PropertyTransformerTest {
 
+	private static final String DEFAULT_PROPERTY_2 = "default_property_2";
+	private static final String DEFAULT_PROPERTY_1 = "default_property_1";
 	private static final String TEST_FILE = "/TestFolder/test.properties";
 	private static final String TEST_FILE_LOC = "src/test/resources";
 
@@ -30,13 +32,7 @@ public class PropertyTransformerTest {
 	}
 	
 	@Test
-	public void test() {
-		
-		
-	}
-	
-	@Test
-	public void transform_unwrap_unwrappedCorrectly() throws IOException {
+	public void transform_unwrap_unwrappedCorrectly()  {
 		String input = "value,value2,value3";
 		String[] valArr = input.split(",");
 		String value = Arrays.toString(valArr);
@@ -55,8 +51,8 @@ public class PropertyTransformerTest {
 	@Test
 	public void load_validFile_success() throws IOException {
 		t.load(new File(TEST_FILE_LOC + TEST_FILE));
-		assertEquals("value1", t.config.getProperty("default_property_1"));
-		assertEquals("value2", t.config.getProperty("default_property_2"));
+		assertEquals("value1", t.config.getProperty(DEFAULT_PROPERTY_1));
+		assertEquals("value2", t.config.getProperty(DEFAULT_PROPERTY_2));
 	}
 	
 	@Test
@@ -71,8 +67,8 @@ public class PropertyTransformerTest {
 		
 		t.transform(addable);
 		
-		assertEquals("value1", t.config.getProperty("default_property_1"));
-		assertEquals("value2", t.config.getProperty("default_property_2"));
+		assertEquals("value1", t.config.getProperty(DEFAULT_PROPERTY_1));
+		assertEquals("value2", t.config.getProperty(DEFAULT_PROPERTY_2));
 		assertEquals("value3", t.config.getProperty("new_property_1"));
 	}
 	
@@ -82,13 +78,13 @@ public class PropertyTransformerTest {
 		
 		Map<String, Instruction> addable = new HashMap<>();
 		InstructionBuilder builder = new InstructionBuilder();
-		builder.name("default_property_1").value("value3");
-		addable.put("default_property_1", builder.build());
+		builder.name(DEFAULT_PROPERTY_1).value("value3");
+		addable.put(DEFAULT_PROPERTY_1, builder.build());
 		
 		t.transform(addable);
 		
-		assertEquals("value3", t.config.getProperty("default_property_1"));
-		assertEquals("value2", t.config.getProperty("default_property_2"));
+		assertEquals("value3", t.config.getProperty(DEFAULT_PROPERTY_1));
+		assertEquals("value2", t.config.getProperty(DEFAULT_PROPERTY_2));
 	}
 	
 	@Test
