@@ -1,5 +1,6 @@
 package stash.transformer;
 
+import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,49 +18,10 @@ import stash.utils.DefaultMap;
 import stash.utils.Reflector;
 
 public class TransformerFactory {
-	private static final Map<Class<? extends Transformer>, Set<Directive>> CACHE;
 	private static final Logger logger = LogManager.getLogger();
-	
-	/**
-	 * Sorts directives by the transformers they support, this allows us to
-	 * more efficiently resolve directives when creating transformers as
-	 * we never expect this to change after compile time.
-	 */
-	static {
-		logger.traceEntry();
-		Package directivePkg = Directive.class.getPackage();
-		//Get classes that implement Directive with parameterless ctor
-		Map<Class<? extends Transformer>, Set<Directive>> cache;
-		List<Class<?>> pClasses = Reflector.getClassesForPackage(directivePkg);
-		cache = Collections.unmodifiableMap(pClasses.stream()
-			.filter(Directive.class::isAssignableFrom)
-			.filter(Reflector::isInstantiable)
-			.map(Reflector::initParamCtor)
-			.filter(Objects::nonNull)
-			.map(Directive.class::cast)
-			.flatMap(d -> d.supports()
-				.stream()
-				.map(q -> new SimpleEntry<>(d, q)))
-			.collect(Collectors
-				.groupingBy(e -> e.getValue(), Collectors
-					.mapping(e -> e.getKey(), Collectors.toSet()))));
-		cache = new DefaultMap<>(cache, new HashSet<>());
-		CACHE = Collections.unmodifiableMap(cache);
-		
-		if (logger.isTraceEnabled()) {
-			Set<Directive> directives = CACHE.values().stream()
-					.flatMap(p -> p.stream())
-					.collect(Collectors.toSet());
-			
-			for (Class<? extends Transformer> t : CACHE.keySet()) {
-				logger.trace("Transformer [{}] directives cached", t.getName());
-			}
-			for(Directive d : directives) {
-				logger.trace("Directive [{}] cached", d.getClass().getName());
-			}
-		}
-		logger.traceExit();
-	}
+	private static final Map<Class<? extends Transformer>, Set<Directive>> CACHE = buildCache();
+
+
 	
 	public <T extends Transformer> Set<Directive> getDirectives(Class<T> c){
 		return CACHE.get(c);
@@ -80,5 +42,35 @@ public class TransformerFactory {
 		} else {
 			return new DefaultTransformer();
 		}
+	}
+	
+	
+	/**
+	 * Sorts directives by the transformers they support, this allows us to
+	 * more efficiently resolve directives when creating transformers as
+	 * we never expect this to change after compile time.
+	 */
+
+	private static DefaultMap<Class<? extends Transformer>, Set<Directive>> buildCache() {
+		logger.traceEntry();
+		Package directivePkg = Directive.class.getPackage();
+		//Get classes that implement Directive with parameterless ctor
+		Map<Class<? extends Transformer>, Set<Directive>> cache;
+		List<Class<?>> pClasses = Reflector.getClassesForPackage(directivePkg);
+		cache = Collections.unmodifiableMap(pClasses.stream()
+			.filter(Directive.class::isAssignableFrom)
+			.filter(Reflector::isInstantiable)
+			.map(Reflector::initParamCtor)
+			.filter(Objects::nonNull)
+			.map(Directive.class::cast)
+			.flatMap(d -> d.supports()
+				.stream()
+				.map(q -> new SimpleEntry<>(d, q)))
+			.collect(Collectors
+				.groupingBy(AbstractMap.SimpleEntry::getValue, Collectors
+					.mapping(AbstractMap.SimpleEntry::getKey, Collectors
+							.toSet()))));
+		cache = Collections.unmodifiableMap(cache);
+		return logger.traceExit(new DefaultMap<>(cache, new HashSet<>()));
 	}
 }
