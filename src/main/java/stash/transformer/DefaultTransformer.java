@@ -52,14 +52,14 @@ public class DefaultTransformer extends AbstractTransformer {
 
 	@Override
 	public void transformInternal(Map<String, Instruction> kvp) {
-		logger.entry(kvp);
+		logger.traceEntry(null, kvp);
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void validateDirectivesInternal(Instruction i)
 			throws StashException {
-		logger.entry(i);
+		logger.traceEntry(null, i);
 		throw new UnsupportedOperationException();
 	}
 	

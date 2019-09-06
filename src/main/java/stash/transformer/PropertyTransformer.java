@@ -47,7 +47,7 @@ public class PropertyTransformer extends AbstractTransformer {
 
 	@Override
 	public void transformInternal(Map<String, Instruction> kvp) {
-		logger.entry(kvp);
+		logger.traceEntry(null, kvp);
 		for (Entry<String, Instruction> entry : kvp.entrySet()) {
 			String key = entry.getKey();
 			Instruction inst = entry.getValue();

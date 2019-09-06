@@ -37,7 +37,7 @@ public abstract class AbstractTransformer implements Transformer {
 	}
 	
 	AbstractTransformer(Set<Directive> directives) {
-		logger.entry(directives);
+		logger.traceEntry(null, directives);
 		this.directives = Collections.unmodifiableSet(directives);
 		logger.traceExit();
 	}
