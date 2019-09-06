@@ -20,6 +20,8 @@ import stash.config.InstructionBuilder;
 
 public class PropertyTransformerTest {
 
+	private static final String VALUE3 = "value3";
+	private static final String VALUE2 = "value2";
 	private static final String DEFAULT_PROPERTY_2 = "default_property_2";
 	private static final String DEFAULT_PROPERTY_1 = "default_property_1";
 	private static final String TEST_FILE = "/TestFolder/test.properties";
@@ -52,7 +54,7 @@ public class PropertyTransformerTest {
 	public void load_validFile_success() throws IOException {
 		t.load(new File(TEST_FILE_LOC + TEST_FILE));
 		assertEquals("value1", t.config.getProperty(DEFAULT_PROPERTY_1));
-		assertEquals("value2", t.config.getProperty(DEFAULT_PROPERTY_2));
+		assertEquals(VALUE2, t.config.getProperty(DEFAULT_PROPERTY_2));
 	}
 	
 	@Test
@@ -62,14 +64,14 @@ public class PropertyTransformerTest {
 		Map<String, Instruction> addable = new HashMap<>();
 		
 		InstructionBuilder builder = new InstructionBuilder();
-		builder.value("value3").name("new_property_1");
+		builder.value(VALUE3).name("new_property_1");
 		addable.put("new_property_1", builder.build());
 		
 		t.transform(addable);
 		
 		assertEquals("value1", t.config.getProperty(DEFAULT_PROPERTY_1));
-		assertEquals("value2", t.config.getProperty(DEFAULT_PROPERTY_2));
-		assertEquals("value3", t.config.getProperty("new_property_1"));
+		assertEquals(VALUE2, t.config.getProperty(DEFAULT_PROPERTY_2));
+		assertEquals(VALUE3, t.config.getProperty("new_property_1"));
 	}
 	
 	@Test
@@ -78,13 +80,13 @@ public class PropertyTransformerTest {
 		
 		Map<String, Instruction> addable = new HashMap<>();
 		InstructionBuilder builder = new InstructionBuilder();
-		builder.name(DEFAULT_PROPERTY_1).value("value3");
+		builder.name(DEFAULT_PROPERTY_1).value(VALUE3);
 		addable.put(DEFAULT_PROPERTY_1, builder.build());
 		
 		t.transform(addable);
 		
-		assertEquals("value3", t.config.getProperty(DEFAULT_PROPERTY_1));
-		assertEquals("value2", t.config.getProperty(DEFAULT_PROPERTY_2));
+		assertEquals(VALUE3, t.config.getProperty(DEFAULT_PROPERTY_1));
+		assertEquals(VALUE2, t.config.getProperty(DEFAULT_PROPERTY_2));
 	}
 	
 	@Test
