@@ -61,6 +61,10 @@ public class TransformerFactory {
 		logger.traceExit();
 	}
 	
+	public <T extends Transformer> Set<Directive> getDirectives(Class<T> c){
+		return CACHE.get(c);
+	}
+	
 	public Transformer buildTransformer(String filePath) {
 		int index = filePath.lastIndexOf('.');
 		if (index == -1) {
