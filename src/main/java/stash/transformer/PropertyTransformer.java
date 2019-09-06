@@ -26,7 +26,7 @@ public class PropertyTransformer extends AbstractTransformer {
 
 	
 	public PropertyTransformer() {
-		this(TransformerFactory.CACHE.get(PropertyTransformer.class));
+		this(new TransformerFactory().getDirectives(PropertyTransformer.class));
 	}
 	
 	public PropertyTransformer(Set<Directive> directives) {

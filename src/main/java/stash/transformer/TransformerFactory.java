@@ -17,7 +17,7 @@ import stash.utils.DefaultMap;
 import stash.utils.Reflector;
 
 public class TransformerFactory {
-	public static final Map<Class<? extends Transformer>, Set<Directive>> CACHE;
+	private static final Map<Class<? extends Transformer>, Set<Directive>> CACHE;
 	private static final Logger logger = LogManager.getLogger();
 	
 	/**

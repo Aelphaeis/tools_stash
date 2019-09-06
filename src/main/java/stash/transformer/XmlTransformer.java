@@ -39,7 +39,7 @@ public class XmlTransformer extends AbstractTransformer {
 	Document document;
 
 	public XmlTransformer() {
-		this(TransformerFactory.CACHE.get(XmlTransformer.class));
+		super(new TransformerFactory().getDirectives(XmlTransformer.class));
 	}
 	
 	XmlTransformer(Set<Directive> directives) {

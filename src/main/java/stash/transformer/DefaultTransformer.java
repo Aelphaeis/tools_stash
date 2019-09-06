@@ -29,7 +29,7 @@ public class DefaultTransformer extends AbstractTransformer {
 	private String content;
 	
 	public DefaultTransformer() {
-		super(TransformerFactory.CACHE.get(DefaultTransformer.class));
+		super(new TransformerFactory().getDirectives(DefaultTransformer.class));
 	}
 
 	@Override
