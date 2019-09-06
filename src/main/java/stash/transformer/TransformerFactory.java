@@ -1,10 +1,9 @@
 package stash.transformer;
 
-import static stash.utils.Reflector.getClassesForPackage;
-
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -31,8 +30,8 @@ public class TransformerFactory {
 		Package directivePkg = Directive.class.getPackage();
 		//Get classes that implement Directive with parameterless ctor
 		Map<Class<? extends Transformer>, Set<Directive>> cache;
-		cache = Collections.unmodifiableMap(getClassesForPackage(directivePkg)
-			.stream()
+		List<Class<?>> pClasses = Reflector.getClassesForPackage(directivePkg);
+		cache = Collections.unmodifiableMap(pClasses.stream()
 			.filter(Directive.class::isAssignableFrom)
 			.filter(Reflector::isInstantiable)
 			.map(Reflector::initParamCtor)
