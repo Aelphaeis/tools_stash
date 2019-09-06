@@ -19,10 +19,8 @@ import stash.utils.Reflector;
 
 public class TransformerFactory {
 	private static final Logger logger = LogManager.getLogger();
-	private static final Map<Class<? extends Transformer>, Set<Directive>> CACHE = buildCache();
+	private static final Map<Class<? extends Transformer>, Set<Directive>> CACHE = buildMap();
 
-
-	
 	public <T extends Transformer> Set<Directive> getDirectives(Class<T> c){
 		return CACHE.get(c);
 	}
@@ -51,7 +49,7 @@ public class TransformerFactory {
 	 * we never expect this to change after compile time.
 	 */
 
-	private static DefaultMap<Class<? extends Transformer>, Set<Directive>> buildCache() {
+	static DefaultMap<Class<? extends Transformer>, Set<Directive>> buildMap() {
 		logger.traceEntry();
 		Package directivePkg = Directive.class.getPackage();
 		//Get classes that implement Directive with parameterless ctor
