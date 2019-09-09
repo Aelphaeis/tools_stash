@@ -7,21 +7,28 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Rule;
 import org.junit.Test;
+
+import test.stash.util.ResourceFolder;
 
 public class ConfiguratorTest {
 
+	private static final String LOCATION = "location";
 	private static final String TEST_FILE_LOC = "src/test/resources";
 	private static final String VALID_FILE = "/valid.properties";
 	private static final String TEST_FOLDER = "/TestFolder";
 	
+	@Rule
+	public ResourceFolder fold = new ResourceFolder();
+	
 	@Test
 	public void getInstructions_testDir_getEverything() throws IOException{
 		Configurator conf = new Configurator();
-		Instructions inst = conf.getInstructions(TEST_FILE_LOC + TEST_FOLDER);
-		assertNotNull(inst.get("location"));
-		assertEquals("value1", inst.get("location").get("default_property_1").getValue());
-		assertEquals("value2", inst.get("location").get("default_property_2").getValue());
+		Instructions inst = conf.getInstructions(fold.getResourceFolder());
+		assertNotNull(inst.get(LOCATION));
+		assertEquals("value1", inst.get(LOCATION).get("default_property_1").getValue());
+		assertEquals("value2", inst.get(LOCATION).get("default_property_2").getValue());
 	}
 	
 	@Test
@@ -34,7 +41,7 @@ public class ConfiguratorTest {
 
 	@Test
 	public void listFileTree_multiLvDir_success() {
-		File file = new File(TEST_FILE_LOC + TEST_FOLDER);
+		File file = fold.getResourceFolder();
 		assertEquals(2, Configurator.listFileTree(file).size());
 	}
 

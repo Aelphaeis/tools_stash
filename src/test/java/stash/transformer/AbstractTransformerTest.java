@@ -9,37 +9,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Rule;
 import org.junit.Test;
 
 import stash.config.Instruction;
 import stash.config.InstructionBuilder;
 import stash.exceptions.AggregationException;
 import stash.exceptions.StashException;
+import test.stash.util.ResourceFolder;
 
 public class AbstractTransformerTest {
 
 	private static final String TEST_FILE_LOC = "src/test/resources/TestFolder";
 	
-	AbstractTransformer at = new AbstractTransformer() {
-		
-		@Override
-		public void save(OutputStream stream) throws IOException {
-			
-		}
-		
-		@Override
-		public void load(InputStream stream) throws IOException {
-		}
-
-		@Override
-		public void transformInternal(Map<String, Instruction> kvp) {
-			
-		}
-
-		@Override
-		public void validateDirectivesInternal(Instruction i) {
-		}
-	};
+	
+	@Rule
+	public ResourceFolder fold = new ResourceFolder();
+	
+	AbstractTransformer at = new ConcreteTransformer();
 	
 	@Test(expected=StashException.class)
 	public void validateDirectives_unsupportedDirective_exception() 
@@ -67,6 +54,29 @@ public class AbstractTransformerTest {
 	
 	@Test
 	public void load_file_noException() throws IOException {
-		at.load(new File(TEST_FILE_LOC + "/test.properties"));
+		at.load(new File(fold.getResourceFolder(),"test.properties"));
+	}
+	
+	class ConcreteTransformer extends AbstractTransformer {
+		
+		@Override
+		public void save(OutputStream stream) throws IOException {
+			//this is just a stub
+		}
+		
+		@Override
+		public void load(InputStream stream) throws IOException {
+			//this is just a stub
+		}
+
+		@Override
+		public void transformInternal(Map<String, Instruction> kvp) {
+			//this is just a stub
+		}
+
+		@Override
+		public void validateDirectivesInternal(Instruction i) {
+			//this is just a stub
+		}
 	}
 }

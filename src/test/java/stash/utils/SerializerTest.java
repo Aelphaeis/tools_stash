@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.junit.Test;
 
-import stash.utils.Serializer;
-
 public class SerializerTest {
 
 
@@ -33,7 +31,7 @@ public class SerializerTest {
 		p.setName("Joseph");
 
 		String xml = Serializer.serialize(p);
-		Person pCopy = (Person) Serializer.deserialize(xml, p.getClass());
+		Person pCopy = Serializer.deserialize(xml, p.getClass());
 
 		assertEquals(p.getAge(), pCopy.getAge());
 		assertEquals(p.getName(), pCopy.getName());
@@ -63,10 +61,6 @@ public class SerializerTest {
 
 		private String name;
 		private int age;
-
-		public AnnotatedPerson() {
-
-		}
 
 		@XmlElement(name = "name")
 		public String getName() {
