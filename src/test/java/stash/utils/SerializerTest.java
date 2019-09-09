@@ -12,7 +12,7 @@ public class SerializerTest {
 
 
 	@Test
-	public void serializationCycleAnotatedTest() throws Exception {
+	public void serializationCycleAnotatedTest() throws JAXBException  {
 		AnnotatedPerson ap = new AnnotatedPerson();
 		ap.setAge(101);
 		ap.setName("Joseph2");

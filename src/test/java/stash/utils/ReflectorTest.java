@@ -1,12 +1,13 @@
 package stash.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.junit.Test;
-
-import stash.utils.Reflector;
 
 public class ReflectorTest {
 
@@ -49,9 +50,11 @@ public class ReflectorTest {
 	
 
 	public static interface TestInterface { }
-	public static abstract class TestAbstract implements TestInterface {  }
+	public abstract static class TestAbstract implements TestInterface {  }
 	public static class TestConcrete extends TestAbstract { }
 	public static class TestConcreteCtor extends TestConcrete { 
-		public TestConcreteCtor() { }
+		public TestConcreteCtor() { 
+			//Test stub
+		}
 	}
 }
