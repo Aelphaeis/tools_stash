@@ -3,6 +3,7 @@ package stash.directives.xml;
 import java.io.ByteArrayInputStream;
 import java.util.Optional;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -47,6 +48,7 @@ public class Add implements TransformDirective {
 		ByteArrayInputStream is = new ByteArrayInputStream(valueBytes);
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			DocumentBuilder builder = dbf.newDocumentBuilder();
 			Document tempDoc = builder.parse(is);
 			NodeList list = tempDoc.getDocumentElement().getChildNodes();

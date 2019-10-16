@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -61,6 +62,7 @@ public class XmlUtils {
 	
 	public static Document clone(Document doc) throws TransformerException {
 		TransformerFactory tfactory = TransformerFactory.newInstance();
+		tfactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 		Transformer tx   = tfactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		DOMResult result = new DOMResult();

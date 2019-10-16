@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -108,6 +109,7 @@ public final class Serializer {
 		final String indent = "{http://xml.apache.org/xslt}indent-amount";
 		try {
 			TransformerFactory tf = TransformerFactory.newInstance();
+			tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			Transformer t = tf.newTransformer();
 			DOMSource source = new DOMSource(document);
 			StreamResult result = new StreamResult(writer);
@@ -140,6 +142,7 @@ public final class Serializer {
 			throws JAXBException {
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			
 	        dbf.setValidating(false);
 	        dbf.setNamespaceAware(true);
@@ -186,6 +189,7 @@ public final class Serializer {
 		DocumentBuilderFactory docFactory;
 		try {
 			docFactory = DocumentBuilderFactory.newInstance();
+			docFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 			return docBuilder.parse(is);
 		} catch (ParserConfigurationException e) {
