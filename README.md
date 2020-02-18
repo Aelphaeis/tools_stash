@@ -26,7 +26,7 @@ The stash tool is located in the cruat repository
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	<dependencies>
-```
+
 
 
 # Getting Started 
@@ -65,11 +65,11 @@ The Property Name identifies what you want to do the operation on
 The value determines the second operand in binary operations.
 
 # Operations
-``>``  (With a value) This will replace the whatever is stored at the identifier with the value
-``<`` undefined
-``*`` undefined
-``?`` undefined
-``|`` undefined
+- `>`  (With a value) This will replace the whatever is stored at the identifier with the value
+- `<` undefined
+- `*` undefined
+- `?` undefined
+- `|` undefined
 
 # TODO
 
